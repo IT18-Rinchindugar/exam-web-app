@@ -1,11 +1,12 @@
 {
   "name": "syscotech-admin",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "release": "standard-version",
     "lint": "next lint",
     "commit": "git-cz"
   },
@@ -21,6 +22,7 @@
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",
     "git-cz": "^4.8.0",
+    "standard-version": "^9.3.2",
     "typescript": "4.6.2"
   }
 }
