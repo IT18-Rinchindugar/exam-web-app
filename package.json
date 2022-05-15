@@ -1,16 +1,22 @@
 {
-  "name": "syscotech-admin",
+  "name": "exam-web-app",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
+    "predev": "yarn install",
     "build": "next build",
-    "start": "next start",
-    "release": "standard-version",
+    "prebuild": "yarn install",
+    "start": "next start -p 3001",
     "lint": "next lint",
-    "commit": "git-cz"
+    "release": "standard-version",
+    "commit": "git-cz",
+    "prettier": "prettier --write .",
+    "validate": "npm ls"
   },
   "dependencies": {
+    "@headlessui/react": "^1.6.1",
+    "@heroicons/react": "^1.0.6",
     "antd": "^4.19.1",
     "next": "12.1.0",
     "react": "17.0.2",
@@ -21,6 +27,7 @@
     "@types/react": "17.0.40",
     "@typescript-eslint/eslint-plugin": "^5.14.0",
     "@typescript-eslint/parser": "^5.14.0",
+    "autoprefixer": "^10.4.7",
     "eslint": "^8.11.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "12.1.0",

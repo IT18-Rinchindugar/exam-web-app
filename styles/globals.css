@@ -170,10 +170,6 @@
     @apply transition duration-500;
   }
 
-  .background-color {
-    @apply bg-background backdrop-blur;
-  }
-
   .h-screen-60 {
     height: 60vh;
   }

@@ -11,7 +11,12 @@ const Home: NextPage = () => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <main>
-      <Heading type="h4" label="Шалгалтын веб" color="primary" />
+      <Heading
+        type="h4"
+        label="Шалгалтын веб"
+        color="primary"
+        className="text-teal-30"
+      />
     </main>
   </div>
 );
