@@ -13,8 +13,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ApolloProvider client={apolloClient}>
       <ToastContainer
         position="top-center"
-        autoClose={1000}
-        hideProgressBar={false}
+        autoClose={1500}
+        hideProgressBar={true}
         newestOnTop={false}
         closeOnClick
         rtl={false}

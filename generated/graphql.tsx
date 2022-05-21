@@ -41,7 +41,8 @@ export type Exam = {
   __typename?: 'Exam';
   code: Scalars['String'];
   id: Scalars['uuid'];
-  status?: Maybe<Scalars['Boolean']>;
+  name: Scalars['String'];
+  status?: Maybe<Scalars['String']>;
   /** An object relationship */
   test: Test;
   /** An array relationship */
@@ -87,7 +88,8 @@ export type Exam_Bool_Exp = {
   _or?: InputMaybe<Array<Exam_Bool_Exp>>;
   code?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
-  status?: InputMaybe<Boolean_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  status?: InputMaybe<String_Comparison_Exp>;
   test?: InputMaybe<Test_Bool_Exp>;
   testUsers?: InputMaybe<TestUser_Bool_Exp>;
   test_id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -98,6 +100,8 @@ export type Exam_Bool_Exp = {
 export type Exam_Max_Order_By = {
   code?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
   test_id?: InputMaybe<Order_By>;
 };
 
@@ -105,6 +109,8 @@ export type Exam_Max_Order_By = {
 export type Exam_Min_Order_By = {
   code?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
   test_id?: InputMaybe<Order_By>;
 };
 
@@ -112,6 +118,7 @@ export type Exam_Min_Order_By = {
 export type Exam_Order_By = {
   code?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
   test?: InputMaybe<Test_Order_By>;
   testUsers_aggregate?: InputMaybe<TestUser_Aggregate_Order_By>;
@@ -125,6 +132,8 @@ export enum Exam_Select_Column {
   Code = 'code',
   /** column name */
   Id = 'id',
+  /** column name */
+  Name = 'name',
   /** column name */
   Status = 'status',
   /** column name */
@@ -949,10 +958,39 @@ export type CheckPublishedExamQueryVariables = Exact<{
 
 export type CheckPublishedExamQuery = { __typename?: 'query_root', Exam: Array<{ __typename?: 'Exam', id: any }> };
 
+export type GetExamByPkSubscriptionVariables = Exact<{
+  examId: Scalars['uuid'];
+}>;
+
+
+export type GetExamByPkSubscription = { __typename?: 'subscription_root', Exam_by_pk?: { __typename?: 'Exam', status?: string | null, name: string, test_id: any } | null };
+
+export type InsertTestUserOneMutationVariables = Exact<{
+  examId?: InputMaybe<Scalars['uuid']>;
+  name: Scalars['String'];
+}>;
+
+
+export type InsertTestUserOneMutation = { __typename?: 'mutation_root', insert_TestUser_one?: { __typename?: 'TestUser', id: any, last_seen?: any | null, name: string, exam_id: any } | null };
+
+export type GetTestUserByExamIdSubscriptionVariables = Exact<{
+  examId: Scalars['uuid'];
+}>;
+
+
+export type GetTestUserByExamIdSubscription = { __typename?: 'subscription_root', TestUser: Array<{ __typename?: 'TestUser', name: string }> };
+
+export type GetTestUserByPkQueryVariables = Exact<{
+  userId: Scalars['uuid'];
+}>;
+
+
+export type GetTestUserByPkQuery = { __typename?: 'query_root', TestUser_by_pk?: { __typename?: 'TestUser', last_seen?: any | null, name: string, exam: { __typename?: 'Exam', status?: string | null } } | null };
+
 
 export const CheckPublishedExamDocument = gql`
     query checkPublishedExam($enterCode: String!) {
-  Exam(where: {code: {_eq: $enterCode}, status: {_eq: true}}) {
+  Exam(where: {code: {_eq: $enterCode}}) {
     id
   }
 }
@@ -985,3 +1023,141 @@ export function useCheckPublishedExamLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type CheckPublishedExamQueryHookResult = ReturnType<typeof useCheckPublishedExamQuery>;
 export type CheckPublishedExamLazyQueryHookResult = ReturnType<typeof useCheckPublishedExamLazyQuery>;
 export type CheckPublishedExamQueryResult = Apollo.QueryResult<CheckPublishedExamQuery, CheckPublishedExamQueryVariables>;
+export const GetExamByPkDocument = gql`
+    subscription getExamByPk($examId: uuid!) {
+  Exam_by_pk(id: $examId) {
+    status
+    name
+    test_id
+  }
+}
+    `;
+
+/**
+ * __useGetExamByPkSubscription__
+ *
+ * To run a query within a React component, call `useGetExamByPkSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useGetExamByPkSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetExamByPkSubscription({
+ *   variables: {
+ *      examId: // value for 'examId'
+ *   },
+ * });
+ */
+export function useGetExamByPkSubscription(baseOptions: Apollo.SubscriptionHookOptions<GetExamByPkSubscription, GetExamByPkSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<GetExamByPkSubscription, GetExamByPkSubscriptionVariables>(GetExamByPkDocument, options);
+      }
+export type GetExamByPkSubscriptionHookResult = ReturnType<typeof useGetExamByPkSubscription>;
+export type GetExamByPkSubscriptionResult = Apollo.SubscriptionResult<GetExamByPkSubscription>;
+export const InsertTestUserOneDocument = gql`
+    mutation insertTestUserOne($examId: uuid, $name: String!) {
+  insert_TestUser_one(object: {exam_id: $examId, name: $name}) {
+    id
+    last_seen
+    name
+    exam_id
+  }
+}
+    `;
+export type InsertTestUserOneMutationFn = Apollo.MutationFunction<InsertTestUserOneMutation, InsertTestUserOneMutationVariables>;
+
+/**
+ * __useInsertTestUserOneMutation__
+ *
+ * To run a mutation, you first call `useInsertTestUserOneMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertTestUserOneMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertTestUserOneMutation, { data, loading, error }] = useInsertTestUserOneMutation({
+ *   variables: {
+ *      examId: // value for 'examId'
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useInsertTestUserOneMutation(baseOptions?: Apollo.MutationHookOptions<InsertTestUserOneMutation, InsertTestUserOneMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertTestUserOneMutation, InsertTestUserOneMutationVariables>(InsertTestUserOneDocument, options);
+      }
+export type InsertTestUserOneMutationHookResult = ReturnType<typeof useInsertTestUserOneMutation>;
+export type InsertTestUserOneMutationResult = Apollo.MutationResult<InsertTestUserOneMutation>;
+export type InsertTestUserOneMutationOptions = Apollo.BaseMutationOptions<InsertTestUserOneMutation, InsertTestUserOneMutationVariables>;
+export const GetTestUserByExamIdDocument = gql`
+    subscription GetTestUserByExamId($examId: uuid!) {
+  TestUser(where: {exam_id: {_eq: $examId}}) {
+    name
+  }
+}
+    `;
+
+/**
+ * __useGetTestUserByExamIdSubscription__
+ *
+ * To run a query within a React component, call `useGetTestUserByExamIdSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useGetTestUserByExamIdSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTestUserByExamIdSubscription({
+ *   variables: {
+ *      examId: // value for 'examId'
+ *   },
+ * });
+ */
+export function useGetTestUserByExamIdSubscription(baseOptions: Apollo.SubscriptionHookOptions<GetTestUserByExamIdSubscription, GetTestUserByExamIdSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<GetTestUserByExamIdSubscription, GetTestUserByExamIdSubscriptionVariables>(GetTestUserByExamIdDocument, options);
+      }
+export type GetTestUserByExamIdSubscriptionHookResult = ReturnType<typeof useGetTestUserByExamIdSubscription>;
+export type GetTestUserByExamIdSubscriptionResult = Apollo.SubscriptionResult<GetTestUserByExamIdSubscription>;
+export const GetTestUserByPkDocument = gql`
+    query getTestUserByPk($userId: uuid!) {
+  TestUser_by_pk(id: $userId) {
+    exam {
+      status
+    }
+    last_seen
+    name
+  }
+}
+    `;
+
+/**
+ * __useGetTestUserByPkQuery__
+ *
+ * To run a query within a React component, call `useGetTestUserByPkQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTestUserByPkQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTestUserByPkQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetTestUserByPkQuery(baseOptions: Apollo.QueryHookOptions<GetTestUserByPkQuery, GetTestUserByPkQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTestUserByPkQuery, GetTestUserByPkQueryVariables>(GetTestUserByPkDocument, options);
+      }
+export function useGetTestUserByPkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTestUserByPkQuery, GetTestUserByPkQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTestUserByPkQuery, GetTestUserByPkQueryVariables>(GetTestUserByPkDocument, options);
+        }
+export type GetTestUserByPkQueryHookResult = ReturnType<typeof useGetTestUserByPkQuery>;
+export type GetTestUserByPkLazyQueryHookResult = ReturnType<typeof useGetTestUserByPkLazyQuery>;
+export type GetTestUserByPkQueryResult = Apollo.QueryResult<GetTestUserByPkQuery, GetTestUserByPkQueryVariables>;
