@@ -15,6 +15,7 @@ export type Scalars = {
   Float: number;
   timestamp: any;
   timestamptz: any;
+  timetz: any;
   uuid: any;
 };
 
@@ -39,6 +40,7 @@ export type Credentials = {
 /** columns and relationships of "Exam" */
 export type Exam = {
   __typename?: 'Exam';
+  activeTextIndex?: Maybe<Scalars['Int']>;
   code: Scalars['String'];
   id: Scalars['uuid'];
   name: Scalars['String'];
@@ -74,11 +76,146 @@ export type ExamTestUsers_AggregateArgs = {
   where?: InputMaybe<TestUser_Bool_Exp>;
 };
 
+/** columns and relationships of "ExamHistory" */
+export type ExamHistory = {
+  __typename?: 'ExamHistory';
+  answer: Scalars['Boolean'];
+  answerMinute: Scalars['timetz'];
+  created_at: Scalars['timestamptz'];
+  id: Scalars['uuid'];
+  isCorrected: Scalars['Boolean'];
+  /** An object relationship */
+  question: Question;
+  question_id: Scalars['uuid'];
+  /** An object relationship */
+  testUser: TestUser;
+  updated_at: Scalars['timestamptz'];
+  user_id: Scalars['uuid'];
+};
+
+/** order by aggregate values of table "ExamHistory" */
+export type ExamHistory_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<ExamHistory_Max_Order_By>;
+  min?: InputMaybe<ExamHistory_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "ExamHistory" */
+export type ExamHistory_Arr_Rel_Insert_Input = {
+  data: Array<ExamHistory_Insert_Input>;
+};
+
+/** Boolean expression to filter rows from the table "ExamHistory". All fields are combined with a logical 'AND'. */
+export type ExamHistory_Bool_Exp = {
+  _and?: InputMaybe<Array<ExamHistory_Bool_Exp>>;
+  _not?: InputMaybe<ExamHistory_Bool_Exp>;
+  _or?: InputMaybe<Array<ExamHistory_Bool_Exp>>;
+  answer?: InputMaybe<Boolean_Comparison_Exp>;
+  answerMinute?: InputMaybe<Timetz_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  isCorrected?: InputMaybe<Boolean_Comparison_Exp>;
+  question?: InputMaybe<Question_Bool_Exp>;
+  question_id?: InputMaybe<Uuid_Comparison_Exp>;
+  testUser?: InputMaybe<TestUser_Bool_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** input type for inserting data into table "ExamHistory" */
+export type ExamHistory_Insert_Input = {
+  answer?: InputMaybe<Scalars['Boolean']>;
+  answerMinute?: InputMaybe<Scalars['timetz']>;
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  isCorrected?: InputMaybe<Scalars['Boolean']>;
+  question_id?: InputMaybe<Scalars['uuid']>;
+  testUser?: InputMaybe<TestUser_Obj_Rel_Insert_Input>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  user_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** order by max() on columns of table "ExamHistory" */
+export type ExamHistory_Max_Order_By = {
+  answerMinute?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  question_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "ExamHistory" */
+export type ExamHistory_Min_Order_By = {
+  answerMinute?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  question_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "ExamHistory" */
+export type ExamHistory_Mutation_Response = {
+  __typename?: 'ExamHistory_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<ExamHistory>;
+};
+
+/** Ordering options when selecting data from "ExamHistory". */
+export type ExamHistory_Order_By = {
+  answer?: InputMaybe<Order_By>;
+  answerMinute?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  isCorrected?: InputMaybe<Order_By>;
+  question?: InputMaybe<Question_Order_By>;
+  question_id?: InputMaybe<Order_By>;
+  testUser?: InputMaybe<TestUser_Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "ExamHistory" */
+export enum ExamHistory_Select_Column {
+  /** column name */
+  Answer = 'answer',
+  /** column name */
+  AnswerMinute = 'answerMinute',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsCorrected = 'isCorrected',
+  /** column name */
+  QuestionId = 'question_id',
+  /** column name */
+  UpdatedAt = 'updated_at',
+  /** column name */
+  UserId = 'user_id'
+}
+
 /** order by aggregate values of table "Exam" */
 export type Exam_Aggregate_Order_By = {
+  avg?: InputMaybe<Exam_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<Exam_Max_Order_By>;
   min?: InputMaybe<Exam_Min_Order_By>;
+  stddev?: InputMaybe<Exam_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Exam_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Exam_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Exam_Sum_Order_By>;
+  var_pop?: InputMaybe<Exam_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Exam_Var_Samp_Order_By>;
+  variance?: InputMaybe<Exam_Variance_Order_By>;
+};
+
+/** order by avg() on columns of table "Exam" */
+export type Exam_Avg_Order_By = {
+  activeTextIndex?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "Exam". All fields are combined with a logical 'AND'. */
@@ -86,6 +223,7 @@ export type Exam_Bool_Exp = {
   _and?: InputMaybe<Array<Exam_Bool_Exp>>;
   _not?: InputMaybe<Exam_Bool_Exp>;
   _or?: InputMaybe<Array<Exam_Bool_Exp>>;
+  activeTextIndex?: InputMaybe<Int_Comparison_Exp>;
   code?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
@@ -98,6 +236,7 @@ export type Exam_Bool_Exp = {
 
 /** order by max() on columns of table "Exam" */
 export type Exam_Max_Order_By = {
+  activeTextIndex?: InputMaybe<Order_By>;
   code?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
@@ -107,6 +246,7 @@ export type Exam_Max_Order_By = {
 
 /** order by min() on columns of table "Exam" */
 export type Exam_Min_Order_By = {
+  activeTextIndex?: InputMaybe<Order_By>;
   code?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
@@ -116,6 +256,7 @@ export type Exam_Min_Order_By = {
 
 /** Ordering options when selecting data from "Exam". */
 export type Exam_Order_By = {
+  activeTextIndex?: InputMaybe<Order_By>;
   code?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
@@ -129,6 +270,8 @@ export type Exam_Order_By = {
 /** select columns of table "Exam" */
 export enum Exam_Select_Column {
   /** column name */
+  ActiveTextIndex = 'activeTextIndex',
+  /** column name */
   Code = 'code',
   /** column name */
   Id = 'id',
@@ -139,6 +282,41 @@ export enum Exam_Select_Column {
   /** column name */
   TestId = 'test_id'
 }
+
+/** order by stddev() on columns of table "Exam" */
+export type Exam_Stddev_Order_By = {
+  activeTextIndex?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "Exam" */
+export type Exam_Stddev_Pop_Order_By = {
+  activeTextIndex?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "Exam" */
+export type Exam_Stddev_Samp_Order_By = {
+  activeTextIndex?: InputMaybe<Order_By>;
+};
+
+/** order by sum() on columns of table "Exam" */
+export type Exam_Sum_Order_By = {
+  activeTextIndex?: InputMaybe<Order_By>;
+};
+
+/** order by var_pop() on columns of table "Exam" */
+export type Exam_Var_Pop_Order_By = {
+  activeTextIndex?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "Exam" */
+export type Exam_Var_Samp_Order_By = {
+  activeTextIndex?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "Exam" */
+export type Exam_Variance_Order_By = {
+  activeTextIndex?: InputMaybe<Order_By>;
+};
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type Int_Comparison_Exp = {
@@ -162,8 +340,27 @@ export type LoginObject = {
 /** columns and relationships of "Question" */
 export type Question = {
   __typename?: 'Question';
+  created_at: Scalars['timestamptz'];
+  description: Scalars['String'];
+  /** An array relationship */
+  examHistories: Array<ExamHistory>;
+  id: Scalars['uuid'];
+  level: Scalars['Int'];
+  point: Scalars['Int'];
   /** An object relationship */
   test: Test;
+  test_id: Scalars['uuid'];
+  text: Scalars['String'];
+};
+
+
+/** columns and relationships of "Question" */
+export type QuestionExamHistoriesArgs = {
+  distinct_on?: InputMaybe<Array<ExamHistory_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ExamHistory_Order_By>>;
+  where?: InputMaybe<ExamHistory_Bool_Exp>;
 };
 
 /** aggregated selection of "Question" */
@@ -176,18 +373,52 @@ export type Question_Aggregate = {
 /** aggregate fields of "Question" */
 export type Question_Aggregate_Fields = {
   __typename?: 'Question_aggregate_fields';
+  avg?: Maybe<Question_Avg_Fields>;
   count: Scalars['Int'];
+  max?: Maybe<Question_Max_Fields>;
+  min?: Maybe<Question_Min_Fields>;
+  stddev?: Maybe<Question_Stddev_Fields>;
+  stddev_pop?: Maybe<Question_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Question_Stddev_Samp_Fields>;
+  sum?: Maybe<Question_Sum_Fields>;
+  var_pop?: Maybe<Question_Var_Pop_Fields>;
+  var_samp?: Maybe<Question_Var_Samp_Fields>;
+  variance?: Maybe<Question_Variance_Fields>;
 };
 
 
 /** aggregate fields of "Question" */
 export type Question_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Question_Select_Column>>;
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** order by aggregate values of table "Question" */
 export type Question_Aggregate_Order_By = {
+  avg?: InputMaybe<Question_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Question_Max_Order_By>;
+  min?: InputMaybe<Question_Min_Order_By>;
+  stddev?: InputMaybe<Question_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Question_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Question_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Question_Sum_Order_By>;
+  var_pop?: InputMaybe<Question_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Question_Var_Samp_Order_By>;
+  variance?: InputMaybe<Question_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Question_Avg_Fields = {
+  __typename?: 'Question_avg_fields';
+  level?: Maybe<Scalars['Float']>;
+  point?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "Question" */
+export type Question_Avg_Order_By = {
+  level?: InputMaybe<Order_By>;
+  point?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "Question". All fields are combined with a logical 'AND'. */
@@ -195,12 +426,183 @@ export type Question_Bool_Exp = {
   _and?: InputMaybe<Array<Question_Bool_Exp>>;
   _not?: InputMaybe<Question_Bool_Exp>;
   _or?: InputMaybe<Array<Question_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  examHistories?: InputMaybe<ExamHistory_Bool_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  level?: InputMaybe<Int_Comparison_Exp>;
+  point?: InputMaybe<Int_Comparison_Exp>;
   test?: InputMaybe<Test_Bool_Exp>;
+  test_id?: InputMaybe<Uuid_Comparison_Exp>;
+  text?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Question_Max_Fields = {
+  __typename?: 'Question_max_fields';
+  created_at?: Maybe<Scalars['timestamptz']>;
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['uuid']>;
+  level?: Maybe<Scalars['Int']>;
+  point?: Maybe<Scalars['Int']>;
+  test_id?: Maybe<Scalars['uuid']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "Question" */
+export type Question_Max_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  level?: InputMaybe<Order_By>;
+  point?: InputMaybe<Order_By>;
+  test_id?: InputMaybe<Order_By>;
+  text?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Question_Min_Fields = {
+  __typename?: 'Question_min_fields';
+  created_at?: Maybe<Scalars['timestamptz']>;
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['uuid']>;
+  level?: Maybe<Scalars['Int']>;
+  point?: Maybe<Scalars['Int']>;
+  test_id?: Maybe<Scalars['uuid']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "Question" */
+export type Question_Min_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  level?: InputMaybe<Order_By>;
+  point?: InputMaybe<Order_By>;
+  test_id?: InputMaybe<Order_By>;
+  text?: InputMaybe<Order_By>;
 };
 
 /** Ordering options when selecting data from "Question". */
 export type Question_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  examHistories_aggregate?: InputMaybe<ExamHistory_Aggregate_Order_By>;
+  id?: InputMaybe<Order_By>;
+  level?: InputMaybe<Order_By>;
+  point?: InputMaybe<Order_By>;
   test?: InputMaybe<Test_Order_By>;
+  test_id?: InputMaybe<Order_By>;
+  text?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "Question" */
+export enum Question_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Level = 'level',
+  /** column name */
+  Point = 'point',
+  /** column name */
+  TestId = 'test_id',
+  /** column name */
+  Text = 'text'
+}
+
+/** aggregate stddev on columns */
+export type Question_Stddev_Fields = {
+  __typename?: 'Question_stddev_fields';
+  level?: Maybe<Scalars['Float']>;
+  point?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "Question" */
+export type Question_Stddev_Order_By = {
+  level?: InputMaybe<Order_By>;
+  point?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Question_Stddev_Pop_Fields = {
+  __typename?: 'Question_stddev_pop_fields';
+  level?: Maybe<Scalars['Float']>;
+  point?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "Question" */
+export type Question_Stddev_Pop_Order_By = {
+  level?: InputMaybe<Order_By>;
+  point?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Question_Stddev_Samp_Fields = {
+  __typename?: 'Question_stddev_samp_fields';
+  level?: Maybe<Scalars['Float']>;
+  point?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "Question" */
+export type Question_Stddev_Samp_Order_By = {
+  level?: InputMaybe<Order_By>;
+  point?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Question_Sum_Fields = {
+  __typename?: 'Question_sum_fields';
+  level?: Maybe<Scalars['Int']>;
+  point?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "Question" */
+export type Question_Sum_Order_By = {
+  level?: InputMaybe<Order_By>;
+  point?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Question_Var_Pop_Fields = {
+  __typename?: 'Question_var_pop_fields';
+  level?: Maybe<Scalars['Float']>;
+  point?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "Question" */
+export type Question_Var_Pop_Order_By = {
+  level?: InputMaybe<Order_By>;
+  point?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Question_Var_Samp_Fields = {
+  __typename?: 'Question_var_samp_fields';
+  level?: Maybe<Scalars['Float']>;
+  point?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "Question" */
+export type Question_Var_Samp_Order_By = {
+  level?: InputMaybe<Order_By>;
+  point?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Question_Variance_Fields = {
+  __typename?: 'Question_variance_fields';
+  level?: Maybe<Scalars['Float']>;
+  point?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "Question" */
+export type Question_Variance_Order_By = {
+  level?: InputMaybe<Order_By>;
+  point?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
@@ -266,6 +668,7 @@ export type TestExamsArgs = {
 
 /** columns and relationships of "Test" */
 export type TestQuestionsArgs = {
+  distinct_on?: InputMaybe<Array<Question_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Question_Order_By>>;
@@ -275,6 +678,7 @@ export type TestQuestionsArgs = {
 
 /** columns and relationships of "Test" */
 export type TestQuestions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Question_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Question_Order_By>>;
@@ -286,10 +690,22 @@ export type TestUser = {
   __typename?: 'TestUser';
   /** An object relationship */
   exam: Exam;
+  /** An array relationship */
+  examHistories: Array<ExamHistory>;
   exam_id: Scalars['uuid'];
   id: Scalars['uuid'];
   last_seen?: Maybe<Scalars['timestamp']>;
   name: Scalars['String'];
+};
+
+
+/** columns and relationships of "TestUser" */
+export type TestUserExamHistoriesArgs = {
+  distinct_on?: InputMaybe<Array<ExamHistory_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ExamHistory_Order_By>>;
+  where?: InputMaybe<ExamHistory_Bool_Exp>;
 };
 
 /** aggregated selection of "TestUser" */
@@ -327,6 +743,7 @@ export type TestUser_Bool_Exp = {
   _not?: InputMaybe<TestUser_Bool_Exp>;
   _or?: InputMaybe<Array<TestUser_Bool_Exp>>;
   exam?: InputMaybe<Exam_Bool_Exp>;
+  examHistories?: InputMaybe<ExamHistory_Bool_Exp>;
   exam_id?: InputMaybe<Uuid_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   last_seen?: InputMaybe<Timestamp_Comparison_Exp>;
@@ -341,6 +758,7 @@ export enum TestUser_Constraint {
 
 /** input type for inserting data into table "TestUser" */
 export type TestUser_Insert_Input = {
+  examHistories?: InputMaybe<ExamHistory_Arr_Rel_Insert_Input>;
   exam_id?: InputMaybe<Scalars['uuid']>;
   name?: InputMaybe<Scalars['String']>;
 };
@@ -388,6 +806,13 @@ export type TestUser_Mutation_Response = {
   returning: Array<TestUser>;
 };
 
+/** input type for inserting object relation for remote table "TestUser" */
+export type TestUser_Obj_Rel_Insert_Input = {
+  data: TestUser_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<TestUser_On_Conflict>;
+};
+
 /** on_conflict condition type for table "TestUser" */
 export type TestUser_On_Conflict = {
   constraint: TestUser_Constraint;
@@ -398,6 +823,7 @@ export type TestUser_On_Conflict = {
 /** Ordering options when selecting data from "TestUser". */
 export type TestUser_Order_By = {
   exam?: InputMaybe<Exam_Order_By>;
+  examHistories_aggregate?: InputMaybe<ExamHistory_Aggregate_Order_By>;
   exam_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   last_seen?: InputMaybe<Order_By>;
@@ -636,6 +1062,10 @@ export enum User_Select_Column {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
+  /** insert data into the table: "ExamHistory" */
+  insert_ExamHistory?: Maybe<ExamHistory_Mutation_Response>;
+  /** insert a single row into the table: "ExamHistory" */
+  insert_ExamHistory_one?: Maybe<ExamHistory>;
   /** insert data into the table: "TestUser" */
   insert_TestUser?: Maybe<TestUser_Mutation_Response>;
   /** insert a single row into the table: "TestUser" */
@@ -646,6 +1076,18 @@ export type Mutation_Root = {
   update_TestUser?: Maybe<TestUser_Mutation_Response>;
   /** update single row of the table: "TestUser" */
   update_TestUser_by_pk?: Maybe<TestUser>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_ExamHistoryArgs = {
+  objects: Array<ExamHistory_Insert_Input>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_ExamHistory_OneArgs = {
+  object: ExamHistory_Insert_Input;
 };
 
 
@@ -702,12 +1144,18 @@ export type Query_Root = {
   __typename?: 'query_root';
   /** fetch data from the table: "Exam" */
   Exam: Array<Exam>;
+  /** fetch data from the table: "ExamHistory" */
+  ExamHistory: Array<ExamHistory>;
+  /** fetch data from the table: "ExamHistory" using primary key columns */
+  ExamHistory_by_pk?: Maybe<ExamHistory>;
   /** fetch data from the table: "Exam" using primary key columns */
   Exam_by_pk?: Maybe<Exam>;
   /** fetch data from the table: "Question" */
   Question: Array<Question>;
   /** fetch aggregated fields from the table: "Question" */
   Question_aggregate: Question_Aggregate;
+  /** fetch data from the table: "Question" using primary key columns */
+  Question_by_pk?: Maybe<Question>;
   /** fetch data from the table: "Test" */
   Test: Array<Test>;
   /** fetch data from the table: "TestUser" */
@@ -734,12 +1182,27 @@ export type Query_RootExamArgs = {
 };
 
 
+export type Query_RootExamHistoryArgs = {
+  distinct_on?: InputMaybe<Array<ExamHistory_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ExamHistory_Order_By>>;
+  where?: InputMaybe<ExamHistory_Bool_Exp>;
+};
+
+
+export type Query_RootExamHistory_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
 export type Query_RootExam_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
 
 export type Query_RootQuestionArgs = {
+  distinct_on?: InputMaybe<Array<Question_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Question_Order_By>>;
@@ -748,10 +1211,16 @@ export type Query_RootQuestionArgs = {
 
 
 export type Query_RootQuestion_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Question_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Question_Order_By>>;
   where?: InputMaybe<Question_Bool_Exp>;
+};
+
+
+export type Query_RootQuestion_By_PkArgs = {
+  id: Scalars['uuid'];
 };
 
 
@@ -809,12 +1278,18 @@ export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** fetch data from the table: "Exam" */
   Exam: Array<Exam>;
+  /** fetch data from the table: "ExamHistory" */
+  ExamHistory: Array<ExamHistory>;
+  /** fetch data from the table: "ExamHistory" using primary key columns */
+  ExamHistory_by_pk?: Maybe<ExamHistory>;
   /** fetch data from the table: "Exam" using primary key columns */
   Exam_by_pk?: Maybe<Exam>;
   /** fetch data from the table: "Question" */
   Question: Array<Question>;
   /** fetch aggregated fields from the table: "Question" */
   Question_aggregate: Question_Aggregate;
+  /** fetch data from the table: "Question" using primary key columns */
+  Question_by_pk?: Maybe<Question>;
   /** fetch data from the table: "Test" */
   Test: Array<Test>;
   /** fetch data from the table: "TestUser" */
@@ -841,12 +1316,27 @@ export type Subscription_RootExamArgs = {
 };
 
 
+export type Subscription_RootExamHistoryArgs = {
+  distinct_on?: InputMaybe<Array<ExamHistory_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<ExamHistory_Order_By>>;
+  where?: InputMaybe<ExamHistory_Bool_Exp>;
+};
+
+
+export type Subscription_RootExamHistory_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
 export type Subscription_RootExam_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
 
 export type Subscription_RootQuestionArgs = {
+  distinct_on?: InputMaybe<Array<Question_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Question_Order_By>>;
@@ -855,10 +1345,16 @@ export type Subscription_RootQuestionArgs = {
 
 
 export type Subscription_RootQuestion_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Question_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Question_Order_By>>;
   where?: InputMaybe<Question_Bool_Exp>;
+};
+
+
+export type Subscription_RootQuestion_By_PkArgs = {
+  id: Scalars['uuid'];
 };
 
 
@@ -938,6 +1434,19 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['timestamptz']>>;
 };
 
+/** Boolean expression to compare columns of type "timetz". All fields are combined with logical 'AND'. */
+export type Timetz_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['timetz']>;
+  _gt?: InputMaybe<Scalars['timetz']>;
+  _gte?: InputMaybe<Scalars['timetz']>;
+  _in?: InputMaybe<Array<Scalars['timetz']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['timetz']>;
+  _lte?: InputMaybe<Scalars['timetz']>;
+  _neq?: InputMaybe<Scalars['timetz']>;
+  _nin?: InputMaybe<Array<Scalars['timetz']>>;
+};
+
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
 export type Uuid_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['uuid']>;
@@ -963,7 +1472,14 @@ export type GetExamByPkSubscriptionVariables = Exact<{
 }>;
 
 
-export type GetExamByPkSubscription = { __typename?: 'subscription_root', Exam_by_pk?: { __typename?: 'Exam', status?: string | null, name: string, test_id: any } | null };
+export type GetExamByPkSubscription = { __typename?: 'subscription_root', Exam_by_pk?: { __typename?: 'Exam', status?: string | null, name: string, test_id: any, activeTextIndex?: number | null } | null };
+
+export type ActiveGetQuestionByPkSubscriptionVariables = Exact<{
+  testId: Scalars['uuid'];
+}>;
+
+
+export type ActiveGetQuestionByPkSubscription = { __typename?: 'subscription_root', Question: Array<{ __typename?: 'Question', text: string, level: number, point: number, description: string }> };
 
 export type InsertTestUserOneMutationVariables = Exact<{
   examId?: InputMaybe<Scalars['uuid']>;
@@ -1029,6 +1545,7 @@ export const GetExamByPkDocument = gql`
     status
     name
     test_id
+    activeTextIndex
   }
 }
     `;
@@ -1055,6 +1572,39 @@ export function useGetExamByPkSubscription(baseOptions: Apollo.SubscriptionHookO
       }
 export type GetExamByPkSubscriptionHookResult = ReturnType<typeof useGetExamByPkSubscription>;
 export type GetExamByPkSubscriptionResult = Apollo.SubscriptionResult<GetExamByPkSubscription>;
+export const ActiveGetQuestionByPkDocument = gql`
+    subscription activeGetQuestionByPk($testId: uuid!) {
+  Question(limit: 10, where: {test_id: {_eq: $testId}}, order_by: {level: asc}) {
+    text
+    level
+    point
+    description
+  }
+}
+    `;
+
+/**
+ * __useActiveGetQuestionByPkSubscription__
+ *
+ * To run a query within a React component, call `useActiveGetQuestionByPkSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useActiveGetQuestionByPkSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useActiveGetQuestionByPkSubscription({
+ *   variables: {
+ *      testId: // value for 'testId'
+ *   },
+ * });
+ */
+export function useActiveGetQuestionByPkSubscription(baseOptions: Apollo.SubscriptionHookOptions<ActiveGetQuestionByPkSubscription, ActiveGetQuestionByPkSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<ActiveGetQuestionByPkSubscription, ActiveGetQuestionByPkSubscriptionVariables>(ActiveGetQuestionByPkDocument, options);
+      }
+export type ActiveGetQuestionByPkSubscriptionHookResult = ReturnType<typeof useActiveGetQuestionByPkSubscription>;
+export type ActiveGetQuestionByPkSubscriptionResult = Apollo.SubscriptionResult<ActiveGetQuestionByPkSubscription>;
 export const InsertTestUserOneDocument = gql`
     mutation insertTestUserOne($examId: uuid, $name: String!) {
   insert_TestUser_one(object: {exam_id: $examId, name: $name}) {

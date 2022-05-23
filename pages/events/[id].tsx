@@ -137,7 +137,10 @@ const EventPage = ({ examId }: any) => {
     if (startCount === 0 && examData?.Exam_by_pk?.status === 'starting') {
       return (
         <div className="flex h-full justify-center items-center">
-          <ExamProcessing />
+          <ExamProcessing
+            testId={examData.Exam_by_pk.test_id}
+            activeIndex={examData.Exam_by_pk.activeTextIndex || 0}
+          />
         </div>
       );
     }

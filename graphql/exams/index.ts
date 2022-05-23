@@ -14,6 +14,7 @@ export const GET_EXAM_BY_PK_MUTATION = gql`
       status
       name
       test_id
+      activeTextIndex
     }
   }
 `;

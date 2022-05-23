@@ -1,17 +1,31 @@
 import { Heading } from '@/components/elements/typography';
-import React from 'react';
+import { useActiveGetQuestionByPkSubscription } from 'generated/graphql';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 
 type ExamProcessingProps = {
-  text: string;
+  activeIndex: number;
+  testId: string;
 };
-const ExamProcessing = () => {
+
+const ExamProcessing = ({ activeIndex, testId }: ExamProcessingProps) => {
+  const [activeDate, setActiveDate] = useState<any>();
+  const { data, loading } = useActiveGetQuestionByPkSubscription({
+    variables: { testId: testId },
+  });
+
+  useEffect(() => {
+    const date = new Date();
+    setActiveDate(date);
+  }, [activeIndex]);
+
   return (
     <div className="w-full h-5/6 flex flex-col m-8">
       <div className="w-full h-1/2 bg-black rounded-2xl p-4 flex justify-center items-center">
         <div className="mx-10">
           <Heading
             type="hero"
-            label="Миний хувьд гиюүрсэн, хоосон мөрөөдсөн байдалтай байх нь элбэг... Миний хувьд гиюүрсэн, хоосон мөрөөдсөн байдалтай байх нь элбэг..."
+            label={data?.Question[activeIndex].text || ''}
             color="color-1"
             className="text-center"
           />
