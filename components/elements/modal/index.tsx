@@ -1,13 +1,14 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/no-unused-prop-types */
-import React, { Fragment, ReactChildren, ReactNode } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import React, { Fragment, ReactChildren, ReactNode } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 
 type ModalProps = {
   children: ReactNode | ReactChildren;
   isOpen: boolean;
   closeModal: () => void;
   className?: string;
+  opacity: number;
 };
 
 export default function Modal({
@@ -15,6 +16,7 @@ export default function Modal({
   isOpen,
   closeModal,
   className,
+  opacity,
 }: ModalProps) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -24,7 +26,9 @@ export default function Modal({
         onClose={closeModal}
       >
         <div className={`min-h-screen px-4 text-center ${className}`}>
-          <Dialog.Overlay className="fixed inset-0 bg-background opacity-60" />
+          <Dialog.Overlay
+            className={`fixed inset-0 bg-background opacity-${opacity}`}
+          />
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

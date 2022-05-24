@@ -156,6 +156,7 @@ const EventPage = ({ examId }: any) => {
             startCount !== 0 && examData?.Exam_by_pk?.status === 'starting'
           }
           closeModal={() => {}}
+          opacity={70}
           className="flex items-center justify-center"
         >
           <section className="flex h-[12.5rem] w-[13.5rem] rounded-2xl transform flex-col justify-center items-center bg-color-white p-6 shadow-xl transition-all">

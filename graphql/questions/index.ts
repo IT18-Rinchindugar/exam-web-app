@@ -11,6 +11,7 @@ export const GET_QUESTION_BY_PK_MUTATION = gql`
       level
       point
       description
+      id
     }
   }
 `;

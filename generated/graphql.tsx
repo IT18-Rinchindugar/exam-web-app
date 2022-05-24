@@ -15,7 +15,6 @@ export type Scalars = {
   Float: number;
   timestamp: any;
   timestamptz: any;
-  timetz: any;
   uuid: any;
 };
 
@@ -80,7 +79,7 @@ export type ExamTestUsers_AggregateArgs = {
 export type ExamHistory = {
   __typename?: 'ExamHistory';
   answer: Scalars['Boolean'];
-  answerMinute: Scalars['timetz'];
+  answerMinute: Scalars['String'];
   created_at: Scalars['timestamptz'];
   id: Scalars['uuid'];
   isCorrected: Scalars['Boolean'];
@@ -103,6 +102,8 @@ export type ExamHistory_Aggregate_Order_By = {
 /** input type for inserting array relation for remote table "ExamHistory" */
 export type ExamHistory_Arr_Rel_Insert_Input = {
   data: Array<ExamHistory_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<ExamHistory_On_Conflict>;
 };
 
 /** Boolean expression to filter rows from the table "ExamHistory". All fields are combined with a logical 'AND'. */
@@ -111,7 +112,7 @@ export type ExamHistory_Bool_Exp = {
   _not?: InputMaybe<ExamHistory_Bool_Exp>;
   _or?: InputMaybe<Array<ExamHistory_Bool_Exp>>;
   answer?: InputMaybe<Boolean_Comparison_Exp>;
-  answerMinute?: InputMaybe<Timetz_Comparison_Exp>;
+  answerMinute?: InputMaybe<String_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   isCorrected?: InputMaybe<Boolean_Comparison_Exp>;
@@ -122,16 +123,19 @@ export type ExamHistory_Bool_Exp = {
   user_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
 
+/** unique or primary key constraints on table "ExamHistory" */
+export enum ExamHistory_Constraint {
+  /** unique or primary key constraint */
+  ExamHistoryPkey = 'ExamHistory_pkey'
+}
+
 /** input type for inserting data into table "ExamHistory" */
 export type ExamHistory_Insert_Input = {
   answer?: InputMaybe<Scalars['Boolean']>;
-  answerMinute?: InputMaybe<Scalars['timetz']>;
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  id?: InputMaybe<Scalars['uuid']>;
+  answerMinute?: InputMaybe<Scalars['String']>;
   isCorrected?: InputMaybe<Scalars['Boolean']>;
   question_id?: InputMaybe<Scalars['uuid']>;
   testUser?: InputMaybe<TestUser_Obj_Rel_Insert_Input>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
   user_id?: InputMaybe<Scalars['uuid']>;
 };
 
@@ -164,6 +168,13 @@ export type ExamHistory_Mutation_Response = {
   returning: Array<ExamHistory>;
 };
 
+/** on_conflict condition type for table "ExamHistory" */
+export type ExamHistory_On_Conflict = {
+  constraint: ExamHistory_Constraint;
+  update_columns?: Array<ExamHistory_Update_Column>;
+  where?: InputMaybe<ExamHistory_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "ExamHistory". */
 export type ExamHistory_Order_By = {
   answer?: InputMaybe<Order_By>;
@@ -176,6 +187,11 @@ export type ExamHistory_Order_By = {
   testUser?: InputMaybe<TestUser_Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: ExamHistory */
+export type ExamHistory_Pk_Columns_Input = {
+  id: Scalars['uuid'];
 };
 
 /** select columns of table "ExamHistory" */
@@ -194,6 +210,29 @@ export enum ExamHistory_Select_Column {
   QuestionId = 'question_id',
   /** column name */
   UpdatedAt = 'updated_at',
+  /** column name */
+  UserId = 'user_id'
+}
+
+/** input type for updating data in table "ExamHistory" */
+export type ExamHistory_Set_Input = {
+  answer?: InputMaybe<Scalars['Boolean']>;
+  answerMinute?: InputMaybe<Scalars['String']>;
+  isCorrected?: InputMaybe<Scalars['Boolean']>;
+  question_id?: InputMaybe<Scalars['uuid']>;
+  user_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** update columns of table "ExamHistory" */
+export enum ExamHistory_Update_Column {
+  /** column name */
+  Answer = 'answer',
+  /** column name */
+  AnswerMinute = 'answerMinute',
+  /** column name */
+  IsCorrected = 'isCorrected',
+  /** column name */
+  QuestionId = 'question_id',
   /** column name */
   UserId = 'user_id'
 }
@@ -340,6 +379,7 @@ export type LoginObject = {
 /** columns and relationships of "Question" */
 export type Question = {
   __typename?: 'Question';
+  answer: Scalars['Boolean'];
   created_at: Scalars['timestamptz'];
   description: Scalars['String'];
   /** An array relationship */
@@ -361,6 +401,18 @@ export type QuestionExamHistoriesArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<ExamHistory_Order_By>>;
   where?: InputMaybe<ExamHistory_Bool_Exp>;
+};
+
+export type QuestionInput = {
+  answer: Scalars['Boolean'];
+  answerMinute: Scalars['String'];
+  questionId: Scalars['uuid'];
+  userId: Scalars['uuid'];
+};
+
+export type QuestionOutput = {
+  __typename?: 'QuestionOutput';
+  isCorrected: Scalars['Boolean'];
 };
 
 /** aggregated selection of "Question" */
@@ -426,6 +478,7 @@ export type Question_Bool_Exp = {
   _and?: InputMaybe<Array<Question_Bool_Exp>>;
   _not?: InputMaybe<Question_Bool_Exp>;
   _or?: InputMaybe<Array<Question_Bool_Exp>>;
+  answer?: InputMaybe<Boolean_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   examHistories?: InputMaybe<ExamHistory_Bool_Exp>;
@@ -485,6 +538,7 @@ export type Question_Min_Order_By = {
 
 /** Ordering options when selecting data from "Question". */
 export type Question_Order_By = {
+  answer?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   examHistories_aggregate?: InputMaybe<ExamHistory_Aggregate_Order_By>;
@@ -498,6 +552,8 @@ export type Question_Order_By = {
 
 /** select columns of table "Question" */
 export enum Question_Select_Column {
+  /** column name */
+  Answer = 'answer',
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
@@ -1062,6 +1118,8 @@ export enum User_Select_Column {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
+  /** checkAnswer */
+  checkAnswer?: Maybe<QuestionOutput>;
   /** insert data into the table: "ExamHistory" */
   insert_ExamHistory?: Maybe<ExamHistory_Mutation_Response>;
   /** insert a single row into the table: "ExamHistory" */
@@ -1072,6 +1130,10 @@ export type Mutation_Root = {
   insert_TestUser_one?: Maybe<TestUser>;
   /** login */
   login?: Maybe<LoginObject>;
+  /** update data of the table: "ExamHistory" */
+  update_ExamHistory?: Maybe<ExamHistory_Mutation_Response>;
+  /** update single row of the table: "ExamHistory" */
+  update_ExamHistory_by_pk?: Maybe<ExamHistory>;
   /** update data of the table: "TestUser" */
   update_TestUser?: Maybe<TestUser_Mutation_Response>;
   /** update single row of the table: "TestUser" */
@@ -1080,14 +1142,22 @@ export type Mutation_Root = {
 
 
 /** mutation root */
+export type Mutation_RootCheckAnswerArgs = {
+  answer: QuestionInput;
+};
+
+
+/** mutation root */
 export type Mutation_RootInsert_ExamHistoryArgs = {
   objects: Array<ExamHistory_Insert_Input>;
+  on_conflict?: InputMaybe<ExamHistory_On_Conflict>;
 };
 
 
 /** mutation root */
 export type Mutation_RootInsert_ExamHistory_OneArgs = {
   object: ExamHistory_Insert_Input;
+  on_conflict?: InputMaybe<ExamHistory_On_Conflict>;
 };
 
 
@@ -1108,6 +1178,20 @@ export type Mutation_RootInsert_TestUser_OneArgs = {
 /** mutation root */
 export type Mutation_RootLoginArgs = {
   credentials: Credentials;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_ExamHistoryArgs = {
+  _set?: InputMaybe<ExamHistory_Set_Input>;
+  where: ExamHistory_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_ExamHistory_By_PkArgs = {
+  _set?: InputMaybe<ExamHistory_Set_Input>;
+  pk_columns: ExamHistory_Pk_Columns_Input;
 };
 
 
@@ -1434,19 +1518,6 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['timestamptz']>>;
 };
 
-/** Boolean expression to compare columns of type "timetz". All fields are combined with logical 'AND'. */
-export type Timetz_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['timetz']>;
-  _gt?: InputMaybe<Scalars['timetz']>;
-  _gte?: InputMaybe<Scalars['timetz']>;
-  _in?: InputMaybe<Array<Scalars['timetz']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
-  _lt?: InputMaybe<Scalars['timetz']>;
-  _lte?: InputMaybe<Scalars['timetz']>;
-  _neq?: InputMaybe<Scalars['timetz']>;
-  _nin?: InputMaybe<Array<Scalars['timetz']>>;
-};
-
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
 export type Uuid_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['uuid']>;
@@ -1459,6 +1530,16 @@ export type Uuid_Comparison_Exp = {
   _neq?: InputMaybe<Scalars['uuid']>;
   _nin?: InputMaybe<Array<Scalars['uuid']>>;
 };
+
+export type CreateExamHistoryMutationVariables = Exact<{
+  answer: Scalars['Boolean'];
+  answerMinute: Scalars['String'];
+  questionId: Scalars['uuid'];
+  userId: Scalars['uuid'];
+}>;
+
+
+export type CreateExamHistoryMutation = { __typename?: 'mutation_root', checkAnswer?: { __typename?: 'QuestionOutput', isCorrected: boolean } | null };
 
 export type CheckPublishedExamQueryVariables = Exact<{
   enterCode: Scalars['String'];
@@ -1479,7 +1560,7 @@ export type ActiveGetQuestionByPkSubscriptionVariables = Exact<{
 }>;
 
 
-export type ActiveGetQuestionByPkSubscription = { __typename?: 'subscription_root', Question: Array<{ __typename?: 'Question', text: string, level: number, point: number, description: string }> };
+export type ActiveGetQuestionByPkSubscription = { __typename?: 'subscription_root', Question: Array<{ __typename?: 'Question', text: string, level: number, point: number, description: string, id: any }> };
 
 export type InsertTestUserOneMutationVariables = Exact<{
   examId?: InputMaybe<Scalars['uuid']>;
@@ -1504,6 +1585,44 @@ export type GetTestUserByPkQueryVariables = Exact<{
 export type GetTestUserByPkQuery = { __typename?: 'query_root', TestUser_by_pk?: { __typename?: 'TestUser', last_seen?: any | null, name: string, exam: { __typename?: 'Exam', status?: string | null } } | null };
 
 
+export const CreateExamHistoryDocument = gql`
+    mutation createExamHistory($answer: Boolean!, $answerMinute: String!, $questionId: uuid!, $userId: uuid!) {
+  checkAnswer(
+    answer: {answer: $answer, answerMinute: $answerMinute, questionId: $questionId, userId: $userId}
+  ) {
+    isCorrected
+  }
+}
+    `;
+export type CreateExamHistoryMutationFn = Apollo.MutationFunction<CreateExamHistoryMutation, CreateExamHistoryMutationVariables>;
+
+/**
+ * __useCreateExamHistoryMutation__
+ *
+ * To run a mutation, you first call `useCreateExamHistoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateExamHistoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createExamHistoryMutation, { data, loading, error }] = useCreateExamHistoryMutation({
+ *   variables: {
+ *      answer: // value for 'answer'
+ *      answerMinute: // value for 'answerMinute'
+ *      questionId: // value for 'questionId'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useCreateExamHistoryMutation(baseOptions?: Apollo.MutationHookOptions<CreateExamHistoryMutation, CreateExamHistoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateExamHistoryMutation, CreateExamHistoryMutationVariables>(CreateExamHistoryDocument, options);
+      }
+export type CreateExamHistoryMutationHookResult = ReturnType<typeof useCreateExamHistoryMutation>;
+export type CreateExamHistoryMutationResult = Apollo.MutationResult<CreateExamHistoryMutation>;
+export type CreateExamHistoryMutationOptions = Apollo.BaseMutationOptions<CreateExamHistoryMutation, CreateExamHistoryMutationVariables>;
 export const CheckPublishedExamDocument = gql`
     query checkPublishedExam($enterCode: String!) {
   Exam(where: {code: {_eq: $enterCode}}) {
@@ -1579,6 +1698,7 @@ export const ActiveGetQuestionByPkDocument = gql`
     level
     point
     description
+    id
   }
 }
     `;
