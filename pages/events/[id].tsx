@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Heading, Paragraph } from '@/components/elements/typography';
-import Layout, { BaseLayout } from '@/components/layouts/main/MainLayout';
+import { BaseLayout } from '@/components/layouts/main/MainLayout';
 import ReactLoading from 'react-loading';
 import Image from 'next/image';
 import {
@@ -11,6 +11,7 @@ import {
 } from 'generated/graphql';
 import Modal from '@/components/elements/modal';
 import ExamProcessing from '@/components/modules/exam/ExamProcessing';
+import ExamFinished from '@/components/modules/exam/ExamFinished';
 
 const EventPage = ({ examId }: any) => {
   const router = useRouter();
@@ -141,6 +142,13 @@ const EventPage = ({ examId }: any) => {
             testId={examData.Exam_by_pk.test_id}
             activeIndex={examData.Exam_by_pk.activeTextIndex || 0}
           />
+        </div>
+      );
+    }
+    if (examData?.Exam_by_pk?.status === 'finished') {
+      return (
+        <div className="flex h-full justify-center items-center">
+          <ExamFinished testId={examData.Exam_by_pk.test_id} />
         </div>
       );
     }

@@ -69,6 +69,7 @@ const ExamProcessing = ({ activeIndex, testId }: ExamProcessingProps) => {
       setAnswer(null);
       setNextQuestion(true);
       setStartCount(5);
+      setIsCorrected(null);
     }
   }, [activeIndex]);
 
